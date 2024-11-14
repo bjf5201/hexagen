@@ -1,0 +1,36 @@
+{
+  "name": "typescript-postgresql-node",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "davidanson.vscode-markdownlint",
+        "mads-hartmann.bash-ide-vscode"
+      ]
+    }
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true
+  },
+  "containerEnv": {
+    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+    "GITHUB_REPOSITORY": "${localEnv:GITHUB_REPOSITORY}",
+    "GITHUB_REPOSITORY_OWNER": "${localEnv:GITHUB_REPOSITORY_OWNER}",
+    "GITHUB_USER": "${localEnv:GITHUB_USER}"
+  },
+  "forwardPorts": [3000, 9229, 9230],
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/robbert229/devcontainer-features/postgresql-client:1": {}
+  },
+  "remoteUser": "node"
+}
