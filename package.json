@@ -1,0 +1,28 @@
+{
+	"name": "hexagen",
+	"version": "0.0.0",
+	"description": "A",
+	"author": "Bethany Fannin <contact@bethanyfannin.com>",
+	"homepage": "https://github.com/bethanyfannin/hexagen/blob/main/README.md",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bethanyfannin/hexagen.git"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-emoji-conventional"
+		}
+	},
+	"packageManager": "pnpm@9.13.0+sha512.beb9e2a803db336c10c9af682b58ad7181ca0fbd0d4119f2b33d5f2582e96d6c0d93c85b23869295b765170fbdaa92890c0da6ada457415039769edf3c959efe",
+	"devDependencies": {
+		"@types/node": "22.9.0",
+		"commitizen": "4.3.1",
+		"cz-emoji-conventional": "1.1.0",
+		"tsx": "4.19.2",
+		"typescript": "5.6.3"
+	},
+	"dependencies": {
+		"@dotenvx/dotenvx": "1.23.0"
+	}
+}

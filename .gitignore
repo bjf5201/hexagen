@@ -1,0 +1,22 @@
+node_modules
+.DS_Store
+.vscode
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Temp files
+*.log
+*.log/**
+*.swp
+*.tmp
+*.swo
+*.swn
+*.swm
+temp
+
