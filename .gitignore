@@ -1,14 +1,12 @@
-node_modules
-.DS_Store
-.vscode
-.env
-.env.local
-.env.*.local
+**/node_modules
+**/.DS_Store
+**/.env
+**/.env.local
+**/.env.*.local
 
 # Editor directories and files
 .idea
-.vscode/*
-!.vscode/extensions.json
+**/.vscode
 
 # Temp files
 *.log
