@@ -1,0 +1,26 @@
+# EditorConfig info: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Python - 4 space indentation
+[*.{py,html,md,mdx}]
+indent_size = 4
+
+# Tab indentation required for Makefile
+[Makefile,*.{mk,mak,make},*.gql]
+indent_style = tab
+indent_size = 4
+
+# Override for markdown whitespace (not needed in markdown)
+[*.{md,mdx}]
+trim_trailing_whitespace = false

@@ -1,0 +1,5 @@
+pnpm-lock.yaml
+.*
+!.github/**/*.{yml,yaml}
+node_modules
+dist
