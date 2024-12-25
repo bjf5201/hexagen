@@ -21,6 +21,7 @@
   "types": "dist/index.d.ts",
   "files": ["dist"],
   "scripts": {
+    "prepare": "node .husky/install.mjs",
     "check-types": "pnpm exec tsc --noEmit",
     "lint": "pnpm exec eslint .",
     "lint:fix": "pnpm exec eslint . --fix",

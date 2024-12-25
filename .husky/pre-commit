@@ -1,1 +1,2 @@
-pnpm dlx lint-staged
+# .husky/pre-commit
+pnpm run check-types && pnpm run lint && pnpm run format
