@@ -20,18 +20,11 @@ export default typescriptLint.config(
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
-      rules: {
-        'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars-experimental': 'off',
-        'prettier/prettier': [
-          'error',
-          {
-            'semi': true,
-            'singleQuote': true,
-          }
-        ]
-      }
+    },
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars-experimental': 'off',
     },
   },
   {

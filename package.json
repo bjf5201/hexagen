@@ -2,12 +2,7 @@
   "name": "@hexagen/core",
   "version": "0.0.0",
   "description": "Color scheme generator",
-  "keywords": [
-    "colors",
-    "color scheme generator",
-    "typescript",
-    "devtools"
-  ],
+  "keywords": ["colors", "color scheme generator", "typescript", "devtools"],
   "author": "Bethany Fannin <contact@bethanyfannin.com> (https://www.bethanyfannin.com)",
   "repository": "https://github.com/bjf5201/hexagen",
   "license": "GPU-3-or-later",
@@ -24,9 +19,7 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "check-types": "pnpm exec tsc --noEmit",
     "lint": "pnpm exec eslint .",
@@ -62,13 +55,8 @@
     "globals": "15.14.0"
   },
   "lint-staged": {
-    "*.{ts,cts,mts}": [
-      "pnpm run check-types",
-      "pnpm run lint"
-    ],
-    "*.{js,jsx,json,jsonc,md}": [
-      "pnpm run lint"
-    ]
+    "*.{ts,cts,mts}": ["pnpm run check-types"],
+    "*": ["pnpm run lint"]
   },
   "config": {
     "commitizen": {
