@@ -12,15 +12,11 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 2
 
-# Python - 4 space indentation
-[*.{py,html,md,mdx}]
+# Python and Markdown - 4 space indentation
+[*.{py,md}]
 indent_size = 4
 
-# Tab indentation required for Makefile
+# Tab indentation required for Makefile and GraphQL
 [Makefile,*.{mk,mak,make},*.gql]
 indent_style = tab
 indent_size = 4
-
-# Override for markdown whitespace (not needed in markdown)
-[*.{md,mdx}]
-trim_trailing_whitespace = false
