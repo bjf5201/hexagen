@@ -9,31 +9,34 @@ on:
     branches:
       - main
 
+# Ensure scripts are run with pipefail. See:
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference
+defaults:
+  run:
+    shell: bash
 env:
   HUSKY: 0
+  CI: true
 
 jobs:
   lint:
-    strategy:
-      matrix:
-        node: [lts/*]
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os}}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
         with:
           run_install: false
+          # omit version field to use the version specified in package.json
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
-          node-version: ${{ matrix.node }}
-          cache: pnpm
+          node-version-file: 'package.json' # use version specified in package.json engines.node field
+          cache: 'pnpm'
 
       - name: Setup @antfu's agnostic package manager
         run: pnpm install -g @antfu/ni
@@ -41,32 +44,35 @@ jobs:
       - name: Clean install
         run: nci
 
-      - name: Lint
-        run: nr lint
-
       - name: Check types
         run: nr check-types
+
+      - name: Lint code
+        run: nr lint:fix
+
+      - name: Format code
+        run: nr format
 
   test:
     runs-on: ${{ matrix.os}}
 
     strategy:
       matrix:
-        node: [lts/*]
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [16.x, 18.x, 20.x, 22.x]
+        os: [ubuntu-22.04, ubuntu-latest, macos-latest, windows-latest]
       fail-fast: false
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
         with:
           run_install: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: ${{ matrix.node }}
           cache: pnpm
@@ -82,6 +88,11 @@ jobs:
 
       - name: Unit tests
         run: nr test --if-present
+
+      - name: Upload coverage reports to CodeCov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       # - name: Upload build artifacts
       #   uses: actions/upload-artifact@v3
