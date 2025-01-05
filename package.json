@@ -11,8 +11,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -22,6 +22,8 @@
   "files": ["dist"],
   "scripts": {
     "prepare": "node .husky/install.mjs",
+    "pre-commit": "lint-staged",
+    "clean": "pnpm exec del-cli dist",
     "check-types": "pnpm exec tsc --noEmit",
     "lint": "pnpm exec eslint .",
     "lint:fix": "pnpm exec eslint . --fix",
@@ -33,6 +35,7 @@
   },
   "devDependencies": {
     "@antfu/ni": "0.23.2",
+    "@changesets/cli": "2.27.11",
     "@commitlint/cli": "19.6.1",
     "@commitlint/config-conventional": "19.6.0",
     "@eslint/js": "9.17.0",
@@ -56,66 +59,11 @@
     "globals": "15.14.0"
   },
   "lint-staged": {
-    "*.{ts,cts,mts}": ["pnpm run check-types"],
-    "*": ["pnpm run lint"]
+    "*.{ts,cts,mts,json}": ["pnpm run lint:fix", "pnpm run format"]
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog",
-      "types": {
-        "feat": {
-          "description": "A new feature",
-          "title": "Features"
-        },
-        "fix": {
-          "description": "A bug fix",
-          "title": "Bug Fixes"
-        },
-        "docs": {
-          "description": "Documentation only changes",
-          "title": "Documentation"
-        },
-        "style": {
-          "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
-          "title": "Styles"
-        },
-        "refactor": {
-          "description": "A code change that neither fixes a bug nor adds a feature",
-          "title": "Code Refactoring"
-        },
-        "perf": {
-          "description": "A code change that improves performance",
-          "title": "Performance Improvements"
-        },
-        "test": {
-          "description": "Adding missing tests or correcting existing tests",
-          "title": "Tests"
-        },
-        "build": {
-          "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
-          "title": "Builds"
-        },
-        "ci": {
-          "description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)",
-          "title": "Continuous Integrations"
-        },
-        "chore": {
-          "description": "Other changes that don't modify src or test files",
-          "title": "Chores"
-        },
-        "revert": {
-          "description": "Reverts a previous commit",
-          "title": "Reverts"
-        },
-        "release": {
-          "description": "Create a release commit",
-          "title": "Releases"
-        },
-        "workflow": {
-          "description": "Changes to issue templates, PR templates, etc within Github folder",
-          "title": "Github Workflow"
-        }
-      }
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
