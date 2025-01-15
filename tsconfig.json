@@ -1,20 +1,72 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "module": "node16",
-    "target": "es2020",
+    // TYPE CHECKING
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "strict": true,
-    "verbatimModuleSyntax": true,
-    "declaration": true,
-    "sourceMap": true,
-    "declarationMap": true,
-    // "moduleDetection": "force",
-    "allowJs": true,
+    // 'strict' property automatically enables the following tsconfig options:
+    // alwaysStrict, strictNullChecks, strictBindCallApply, strictFunctionTypes,
+    // strictPropertyInitialization, noImplicitAny, noImplicitThis, useUnknownInCatchVariables
+
+    // MODULES
+    "baseUrl": "./",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "paths": {
+      "@/*": ["./src/*"],
+      "test": ["./tests/*"]
+    },
     "resolveJsonModule": true,
-    "noUncheckedIndexedAccess": true // add undefined to index signatures
+    "rootDirs": ["src", "tests"],
+    "typeRoots": ["./node_modules/@types", "./node_modules/"],
+
+    // EMIT
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": false,
+
+    // JAVASCRIPT SUPPORT
+    "allowJs": true,
+    "checkJs": true,
+
+    // INTEROP CONSTRAINTS
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+
+    // LANGUAGE AND ENVIRONMENT
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es2022"],
+    "target": "esnext",
+
+    // PROJECTS
+    "composite": true,
+    "incremental": true,
+
+    // (ERROR/WARNING) OUTPUT FORMATTING
+    "noErrorTruncation": true,
+    "pretty": true,
+
+    // EXTERNALLIBRARY TYPE CHECKING
+    "skipLibCheck": true,
+    "types": ["vitest/globals"]
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"],
-  "buildOptions": {
-    "outDir": "dist"
-  }
+  "include": ["src", "tests", "scripts", "vitest.config.ts"],
+  "exclude": ["node_modules", "dist", "eslint.config.js"]
 }

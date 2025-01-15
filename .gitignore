@@ -1,8 +1,9 @@
 node_modules
+cache
 coverage
 dist
 .DS_Store
 .eslintcache
 *.log*
-*.env.keys
+.env.keys
 .vscode

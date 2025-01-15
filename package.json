@@ -1,65 +1,94 @@
 {
   "name": "@hexagen/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Color scheme generator",
   "keywords": ["colors", "color scheme generator", "typescript", "devtools"],
   "author": "Bethany Fannin <contact@bethanyfannin.com> (https://www.bethanyfannin.com)",
   "repository": "https://github.com/bjf5201/hexagen",
-  "license": "GPU-3-or-later",
+  "license": "MIT",
   "sideEffects": false,
   "type": "module",
+  "source": "src/index.ts",
+  "types": "./dist/esm/types/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.cjs"
+      "import": {
+        "types": "./dist/esm/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/types/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./*": {
+      "types": "./dist/esm/types/*",
+      "import": "./dist/esm/*",
+      "require": "./dist/cjs/*",
+      "default": "./dist/esm/*"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": ["dist"],
   "scripts": {
     "prepare": "node .husky/install.mjs",
-    "pre-commit": "lint-staged",
-    "clean": "pnpm exec del-cli dist",
-    "check-types": "pnpm exec tsc --noEmit",
-    "lint": "pnpm exec eslint .",
-    "lint:fix": "pnpm exec eslint . --fix",
-    "format": "pnpm exec prettier . --write"
+    "precommit": "lint-staged",
+    "hide": "dotenvx encrypt -f .env && dotenvx encrypt -f .env.production",
+    "show": "dotenvx decrypt -f .env && dotenvx decrypt -f .env.production",
+    "typecheck": "tsc --noEmit",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/esm/index.js",
+    "format": "prettier . --write",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "clean": "rimraf ./dist",
+    "prebuild": "pnpm clean",
+    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "coverage": "pnpm typecheck && pnpm test && pnpm build"
   },
   "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf",
   "engines": {
     "node": "20.18.0"
   },
   "devDependencies": {
-    "@antfu/ni": "0.23.2",
     "@changesets/cli": "2.27.11",
     "@commitlint/cli": "19.6.1",
     "@commitlint/config-conventional": "19.6.0",
     "@eslint/js": "9.17.0",
     "@types/node": "22.10.2",
+    "@vitest/eslint-plugin": "1.1.24",
+    "chalk": "5.4.1",
     "commitizen": "4.3.1",
     "cz-conventional-changelog": "3.3.0",
-    "del-cli": "6.0.0",
     "eslint": "9.17.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-jest": "28.10.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
+    "fast-glob": "3.3.3",
     "husky": "9.1.7",
     "lint-staged": "15.2.11",
+    "mkdirp": "3.0.1",
     "prettier": "3.4.2",
+    "rimraf": "6.0.1",
     "tsx": "4.19.2",
     "typescript": "5.7.2",
-    "typescript-eslint": "8.18.2"
+    "typescript-eslint": "8.18.2",
+    "vitest": "2.1.8"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "1.31.3",
-    "globals": "15.14.0"
+    "commitlint-plugin-cspell": "0.1.1",
+    "globals": "15.14.0",
+    "vite-tsconfig-paths": "5.1.4"
   },
   "lint-staged": {
-    "*.{ts,cts,mts,json}": ["pnpm run lint:fix", "pnpm run format"]
+    "*.{ts,cts,mts,json}": ["pnpm run lint:fix", "pnpm run format"],
+    "^.env*": ["pnpm run hide"]
   },
   "config": {
     "commitizen": {
